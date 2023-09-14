@@ -11,7 +11,7 @@ COM_PORT = "COM8"
 X_FOV = 100
 Y_FOV = 100
 AIM_KEY = 0x02 #Check https://t.ly/qtrot for full key-codes
-X_SPEED = 0.5  #how much you want to decrease the speed in % now is 50% slower
+X_SPEED = 0.5  #speed of the aimbot lower = slower
 Y_SPEED = 0.5
 LOWER_COLOR = np.array([140, 120, 180])
 UPPER_COLOR = np.array([160, 200, 255])
