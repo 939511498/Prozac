@@ -3,21 +3,20 @@ import numpy as np
 import pyautogui
 import win32api
 import serial
-
-from mss import mss
+import dxcam
 
 #Settings
-COM_PORT = "COM8"
+COM_PORT = "COM5"
 X_FOV = 100
 Y_FOV = 100
 AIM_KEY = 0x02 #Check https://t.ly/qtrot for full key-codes
-X_SPEED = 0.5  #speed of the aimbot lower = slower
-Y_SPEED = 0.5
+X_SPEED = 1  #how much you want to decrease the speed in % now is 50% slower
+Y_SPEED = 0.3
 LOWER_COLOR = np.array([140, 120, 180])
 UPPER_COLOR = np.array([160, 200, 255])
  
 class Prozac:
-        
+
     def listen(self):
         while True:
             if win32api.GetAsyncKeyState(AIM_KEY) < 0:
@@ -69,16 +68,22 @@ class Mouse:
             pass
         self.serial_port.read(self.serial_port.in_waiting)
 
+camera = dxcam.create(output_idx=0, output_color="BGR")
+
 class Capture:
     def __init__(self):
         Monitor_Size = pyautogui.size()
         X_CENTER = Monitor_Size.width // 2
         Y_CENTER = Monitor_Size.height // 2
-        X = X_CENTER - X_FOV // 2
-        Y = Y_CENTER - Y_FOV // 2
-        self.mss = mss()
-        self.monitor = {'top': Y, 'left': X, 'width': X_FOV, 'height': Y_FOV}
+        left = X_CENTER - X_FOV // 2
+        top = Y_CENTER - Y_FOV // 2
+        right = left + X_FOV
+        bottom = top + Y_FOV
+        self.region = (left, top, right, bottom)
 
     def get_screen(self):
-        screenshot = self.mss.grab(self.monitor)
-        return np.array(screenshot)
+        while True:
+            screenshot = camera.grab(region=self.region)
+            if screenshot is None:
+                continue
+            return np.array(screenshot)
