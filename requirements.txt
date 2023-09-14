@@ -1,0 +1,7 @@
+art
+opencv-python
+numpy
+pyautogui
+pywin32
+pyserial
+dxcam
