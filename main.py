@@ -1,5 +1,4 @@
 import os
-import threading
 
 from art import *
 from prozac import Prozac
