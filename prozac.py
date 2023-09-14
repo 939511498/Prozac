@@ -6,13 +6,13 @@ import serial
 import dxcam
 
 #Settings
-COM_PORT = "COM5"
-X_FOV = 100
-Y_FOV = 100
-AIM_KEY = 0x02 #Check https://t.ly/qtrot for full key-codes
-X_SPEED = 1  #how much you want to decrease the speed in % now is 50% slower
-Y_SPEED = 0.3
-LOWER_COLOR = np.array([140, 120, 180])
+COM_PORT = "COM5" #com port number of your arduino, can be found in device manager.
+X_FOV = 100 #field of veiw for the x axis.
+Y_FOV = 100 #same thing but for the y axis.
+AIM_KEY = 0x02 #Check https://t.ly/qtrot for full key-codes.
+X_SPEED = 0.7  #speed of the mouse movement, lower = slower.
+Y_SPEED = 0.3  #same thing but for the y axis.
+LOWER_COLOR = np.array([140, 120, 180]) 
 UPPER_COLOR = np.array([160, 200, 255])
  
 class Prozac:
