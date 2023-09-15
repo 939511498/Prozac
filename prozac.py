@@ -1,17 +1,18 @@
-
+import time
 import cv2
 import numpy as np
 import pyautogui
 import win32api
 import serial
 import dxcam
+from colorama import Fore, Style
 
 #Settings
 COM_PORT = "COM5" #com port number of your arduino, can be found in device manager.
 X_FOV = 100 #field of veiw for the x axis.
 Y_FOV = 100 #same thing but for the y axis.
 AIM_KEY = 0x02 #Check https://t.ly/qtrot for full key-codes.
-X_SPEED = 1  #speed of the mouse movement, lower = slower.
+X_SPEED = 0.7  #speed of the mouse movement, lower = slower.
 Y_SPEED = 0.3  #same thing but for the y axis.
 LOWER_COLOR = np.array([140, 110, 150]) 
 UPPER_COLOR = np.array([150, 195, 255])
@@ -61,7 +62,11 @@ class Mouse:
         self.serial_port.baudrate = 115200
         self.serial_port.timeout = 0
         self.serial_port.port = COM_PORT
-        self.serial_port.open()
+        try:
+            self.serial_port.open()
+        except serial.SerialException:
+            print(f"{Fore.RED}[ERROR]{Style.RESET_ALL} Failed to connect because the specified COM port was not found.")
+            time.sleep(10)
 
     def move(self, x, y):
         self.serial_port.write(f'M{x},{y}\n'.encode())
