@@ -2,9 +2,6 @@
 
 void setup() {
   Serial.begin(115200);
-  while (!Serial) {
-    ;
-  }
   Mouse.begin();
 }
 
@@ -16,17 +13,15 @@ void loop() {
 }
 
 void processCommand(String command) {
-  if (command.length() > 0) {
+  if (command == "CLICK") {
+    Mouse.click();
+  } else {
     int commaIndex = command.indexOf(",");
     if (commaIndex != -1) {
       int x = command.substring(0, commaIndex).toInt();
       int y = command.substring(commaIndex + 1).toInt();
-      moveMouse(x, y);
+      Mouse.move(x, y);
+      Serial.write("ACK\n");
     }
   }
-}
-
-void moveMouse(int x, int y) {
-  Mouse.move(x, y);
-  Serial.write("ACK\n");
 }
