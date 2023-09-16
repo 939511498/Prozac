@@ -69,7 +69,7 @@ class Mouse:
             time.sleep(10)
 
     def move(self, x, y):
-        self.serial_port.write(f'M{x},{y}\n'.encode())
+        self.serial_port.write(f'{x},{y}\n'.encode())
         while self.serial_port.in_waiting == 0:
             pass
         self.serial_port.read(self.serial_port.in_waiting)
