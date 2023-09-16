@@ -17,13 +17,11 @@ void loop() {
 
 void processCommand(String command) {
   if (command.length() > 0) {
-    if (command[0] == 'M') {
-      int commaIndex = command.indexOf(",");
-      if (commaIndex != -1) {
-        int x = command.substring(1, commaIndex).toInt();
-        int y = command.substring(commaIndex + 1).toInt();
-        moveMouse(x, y);
-      }
+    int commaIndex = command.indexOf(",");
+    if (commaIndex != -1) {
+      int x = command.substring(0, commaIndex).toInt();
+      int y = command.substring(commaIndex + 1).toInt();
+      moveMouse(x, y);
     }
   }
 }
