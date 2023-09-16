@@ -43,7 +43,6 @@ Need assistance or have queries? Join our Discord community for real-time suppor
 ## 🌟 Upcoming Features
 - [x] Smooth aiming implemented.
 - [ ] GUI development in progress.
-- [ ] Premium version with exclusive features for supporters.
 - [ ] Triggerbot feature to be added.
 - [ ] Code optimization.
 
