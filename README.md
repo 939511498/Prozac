@@ -7,7 +7,7 @@ A Python-based educational project for real-time color-based object tracking usi
 
 To get started with Prozac, you will need **one** of the following Arduino boards:
 
-- [Arduino Uno R4 Wifi](https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us) (Best option)
+- [Arduino Uno R4 Wifi](https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us)
 - [Arduino Leonardo](https://store-usa.arduino.cc/products/arduino-leonardo-with-headers?selectedStore=us)
 - [Arduino Micro](https://store-usa.arduino.cc/products/arduino-micro?selectedStore=us)
 
