@@ -5,3 +5,4 @@ pyautogui
 pywin32
 pyserial
 dxcam
+colorama
