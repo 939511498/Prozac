@@ -3,6 +3,9 @@
 A Python-based educational project for real-time color-based object tracking using computer vision, integrated with Arduino for enhanced security features.
 </p>
 
+![326271580_829989831434355_6228617060849086479_n](https://github.com/Primoria/Prozac/assets/137751691/dc993b97-1e92-44e4-9e46-ce24c71c9a8e)
+
+
 ## 🛠 Requirements
 
 To get started with Prozac, you will need **one** of the following Arduino boards:
