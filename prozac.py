@@ -1,4 +1,3 @@
-import time
 import cv2
 import numpy as np
 import pyautogui
@@ -6,27 +5,31 @@ import win32api
 import serial
 import dxcam
 from colorama import Fore, Style
+from time import sleep
 
-#Settings
-COM_PORT = "COM5" #com port number of your arduino, can be found in device manager.
-X_FOV = 100 #field of veiw for the x axis.
-Y_FOV = 100 #same thing but for the y axis.
-AIM_KEY = 0x02 #Check https://t.ly/qtrot for full key-codes.
-X_SPEED = 0.7  #speed of the mouse movement, lower = slower.
-Y_SPEED = 0.3  #same thing but for the y axis.
-LOWER_COLOR = np.array([140, 110, 150]) 
-UPPER_COLOR = np.array([150, 195, 255])
- 
+# Settings
+COM_PORT = "COM5"  # The COM port number for your Arduino. This can be found in the Device Manager.
+X_FOV = 100  # Field of view for the X-axis.
+Y_FOV = 100  # Field of view for the Y-axis.
+AIM_KEY = 0x02  # Key code for aim action. See https://t.ly/qtrot for full key codes.
+TRIGGER_KEY = 0x12  # Key code for trigger action. See https://t.ly/qtrot for full key codes.
+X_SPEED = 0.5  # Speed of mouse movement along the X-axis. Lower values make it slower.
+Y_SPEED = 0.5  # Speed of mouse movement along the Y-axis. Lower values make it slower.
+LOWER_COLOR = [140, 120, 180]
+UPPER_COLOR = [160, 200, 255]
+camera = dxcam.create(output_idx=0, output_color="BGR") # Initialize the camera with settings
+
 class Prozac:
-
     def listen(self):
         while True:
             if win32api.GetAsyncKeyState(AIM_KEY) < 0:
-                self.run()
+                self.run("aim")
+            if win32api.GetAsyncKeyState(TRIGGER_KEY) < 0:
+                self.run("click")
                 
-    def run(self):
+    def run(self, action):
         hsv = cv2.cvtColor(Capture().get_screen(), cv2.COLOR_BGR2HSV)
-        mask = cv2.inRange(hsv, LOWER_COLOR, UPPER_COLOR)
+        mask = cv2.inRange(hsv, np.array(LOWER_COLOR), np.array(UPPER_COLOR))
         kernel = np.ones((3, 3), np.uint8)
         dilated = cv2.dilate(mask, kernel, iterations=5)
         thresh = cv2.threshold(dilated, 60, 255, cv2.THRESH_BINARY)[1]
@@ -54,8 +57,13 @@ class Prozac:
             x_diff = cX - X_FOV // 2
             y_diff = cY - Y_FOV // 2
 
-            Mouse().move(x_diff * X_SPEED, y_diff * Y_SPEED)
-
+            if action == "aim":
+                Mouse().move(x_diff * X_SPEED, y_diff * Y_SPEED)
+            
+            if action == "click":
+                if abs(x_diff) <= 3 and abs(y_diff) <= 7: #Dirty implementation of a trigger bot. This may be refined later.
+                    Mouse().click()
+                    
 class Mouse:
     def __init__(self):
         self.serial_port = serial.Serial()
@@ -66,30 +74,30 @@ class Mouse:
             self.serial_port.open()
         except serial.SerialException:
             print(f"{Fore.RED}[ERROR]{Style.RESET_ALL} Failed to connect because the specified COM port was not found.")
-            time.sleep(10)
+            sleep(10)
 
     def move(self, x, y):
         self.serial_port.write(f'{x},{y}\n'.encode())
-        while self.serial_port.in_waiting == 0:
-            pass
-        self.serial_port.read(self.serial_port.in_waiting)
 
-camera = dxcam.create(output_idx=0, output_color="BGR")
+    def click(self):
+       self.serial_port.write('CLICK\n'.encode())
 
 class Capture:
     def __init__(self):
-        Monitor_Size = pyautogui.size()
-        X_CENTER = Monitor_Size.width // 2
-        Y_CENTER = Monitor_Size.height // 2
-        left = X_CENTER - X_FOV // 2
-        top = Y_CENTER - Y_FOV // 2
+        monitor_size = pyautogui.size()
+        self.region = self.calculate_region(monitor_size)
+
+    def calculate_region(self, monitor_size):
+        x_center = monitor_size.width // 2
+        y_center = monitor_size.height // 2
+        left = x_center - X_FOV // 2
+        top = y_center - Y_FOV // 2
         right = left + X_FOV
         bottom = top + Y_FOV
-        self.region = (left, top, right, bottom)
+        return left, top, right, bottom
 
     def get_screen(self):
         while True:
             screenshot = camera.grab(region=self.region)
-            if screenshot is None:
-                continue
-            return np.array(screenshot)
+            if screenshot is not None:
+                return np.array(screenshot)
