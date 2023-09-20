@@ -32,7 +32,7 @@ To get started with Prozac, you will need **one** of the following Arduino board
 ### Step 3: Run Python Script
 1. Download and install the [latest Python version](https://www.python.org/downloads/).
 2. Install dependencies with `pip install -r requirements.txt`.
-3. Edit your [settings](https://github.com/Primoria/Prozac/blob/main/prozac.py#L9-L15) in `prozac.py`.
+3. Edit your [settings](https://github.com/Primoria/Prozac/blob/main/prozac.py#L10-L20) in `prozac.py`.
 4. Run `main.py`.
 
 ## ℹ️ Support
