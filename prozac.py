@@ -11,8 +11,8 @@ from time import sleep
 COM_PORT = "COM5"  # The COM port number for your Arduino. This can be found in the Device Manager.
 X_FOV = 100  # Field of view for the X-axis.
 Y_FOV = 100  # Field of view for the Y-axis.
-AIM_KEY = 0x02  # Key code for aim action. See https://t.ly/qtrot for full key codes.
-TRIGGER_KEY = 0x12  # Key code for trigger action. See https://t.ly/qtrot for full key codes.
+AIM_KEY = 0x02  # Key code for aim task. See https://t.ly/qtrot for full key codes.
+TRIGGER_KEY = 0x12  # Key code for trigger task. See https://t.ly/qtrot for full key codes.
 X_SPEED = 0.5  # Speed of mouse movement along the X-axis. Lower values make it slower.
 Y_SPEED = 0.5  # Speed of mouse movement along the Y-axis. Lower values make it slower.
 AIM_OFFSET = 7 #Higher value will make it aim lower
@@ -28,7 +28,7 @@ class Prozac:
             if win32api.GetAsyncKeyState(TRIGGER_KEY) < 0:
                 self.run("click")
 
-    def run(self, action):
+    def run(self, task):
         hsv = cv2.cvtColor(Capture().get_screen(), cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, np.array(LOWER_COLOR), np.array(UPPER_COLOR))
         kernel = np.ones((3, 3), np.uint8)
@@ -57,10 +57,10 @@ class Prozac:
             x_offset = cX - screen_center[0]
             y_offset = top_most_y - screen_center[1]
 
-            if action == "aim":
+            if task == "aim":
                 Mouse().move(x_offset * X_SPEED, y_offset * Y_SPEED)
 
-            if action == "click":
+            if task == "click":
                 if abs(x_offset) <= 3 and abs(y_offset) <= 7: #Dirty implementation of a trigger bot. This may be refined later.
                     Mouse().click()
 
