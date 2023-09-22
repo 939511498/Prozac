@@ -22,7 +22,7 @@ def prints():
     
     print(
     f"{Fore.LIGHTBLACK_EX}[" + f"{Fore.CYAN}x" + f"{Fore.LIGHTBLACK_EX}]{Style.RESET_ALL}"
-    " Join my discord server: " +
+    " Join our support discord server: " +
     f"{Fore.WHITE}discord.gg/bsNKqvxvE2{Style.RESET_ALL}"
     )
 
