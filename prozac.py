@@ -15,6 +15,7 @@ AIM_KEY = 0x02  # Key code for aim action. See https://t.ly/qtrot for full key c
 TRIGGER_KEY = 0x12  # Key code for trigger action. See https://t.ly/qtrot for full key codes.
 X_SPEED = 0.5  # Speed of mouse movement along the X-axis. Lower values make it slower.
 Y_SPEED = 0.5  # Speed of mouse movement along the Y-axis. Lower values make it slower.
+AIM_OFFSET = 7 #Higher value will make it aim lower
 LOWER_COLOR = [140, 120, 180]
 UPPER_COLOR = [160, 200, 255]
 camera = dxcam.create(output_idx=0, output_color="BGR") # Initialize the camera with settings
@@ -26,7 +27,7 @@ class Prozac:
                 self.run("aim")
             if win32api.GetAsyncKeyState(TRIGGER_KEY) < 0:
                 self.run("click")
-                
+
     def run(self, action):
         hsv = cv2.cvtColor(Capture().get_screen(), cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, np.array(LOWER_COLOR), np.array(UPPER_COLOR))
@@ -50,20 +51,19 @@ class Prozac:
                     closest_contour = contour
 
             x, y, w, h = cv2.boundingRect(closest_contour)
-            center = (x + w // 2, y + h // 2)
-            cX = center[0]
-            cY = y + (h * 0.2)
-            cYcenter = center[1] - Y_FOV // 2
-            x_diff = cX - X_FOV // 2
-            y_diff = cY - Y_FOV // 2
+            cX = x + w // 2
+            top_most_y = y + AIM_OFFSET
+
+            x_offset = cX - screen_center[0]
+            y_offset = top_most_y - screen_center[1]
 
             if action == "aim":
-                Mouse().move(x_diff * X_SPEED, y_diff * Y_SPEED)
-            
+                Mouse().move(x_offset * X_SPEED, y_offset * Y_SPEED)
+
             if action == "click":
-                if abs(x_diff) <= 3 and abs(y_diff) <= 7: #Dirty implementation of a trigger bot. This may be refined later.
+                if abs(x_offset) <= 3 and abs(y_offset) <= 7: #Dirty implementation of a trigger bot. This may be refined later.
                     Mouse().click()
-                    
+
 class Mouse:
     def __init__(self):
         self.serial_port = serial.Serial()
