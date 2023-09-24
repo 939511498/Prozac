@@ -4,11 +4,11 @@ import pyautogui
 import win32api
 import serial
 import dxcam
+import time
 from colorama import Fore, Style
-from time import sleep
 
 # Settings
-COM_PORT = "COM5"  # The COM port number for your Arduino. This can be found in the Device Manager.
+COM_PORT = "COM3"  # The COM port number for your Arduino. This can be found in the Device Manager.
 X_FOV = 100  # Field of view for the X-axis.
 Y_FOV = 100  # Field of view for the Y-axis.
 AIM_KEY = 0x02  # Key code for aim task. See https://t.ly/qtrot for full key codes.
@@ -22,7 +22,8 @@ camera = dxcam.create(output_idx=0, output_color="BGR") # Initialize the camera 
 
 class Prozac:
     def __init__(self):
-        self.mouse = Mouse()
+        #self.mouse = Mouse() - an issue, will fix later 
+        self.capture = Capture()
     
     def listen(self):
         while True:
@@ -32,7 +33,7 @@ class Prozac:
                 self.run("click")
                 
     def run(self, task):
-        hsv = cv2.cvtColor(Capture().get_screen(), cv2.COLOR_BGR2HSV)
+        hsv = cv2.cvtColor(self.capture.get_screen(), cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, np.array(LOWER_COLOR), np.array(UPPER_COLOR))
         kernel = np.ones((3, 3), np.uint8)
         dilated = cv2.dilate(mask, kernel, iterations=5)
@@ -61,11 +62,11 @@ class Prozac:
             y_offset = top_most_y - screen_center[1]
 
             if task == "aim":
-                self.mouse.move(x_offset * X_SPEED, y_offset * Y_SPEED)
+                Mouse().move(x_offset * X_SPEED, y_offset * Y_SPEED)
 
             if task == "click":
                 if abs(x_offset) <= 3 and abs(y_offset) <= 7:
-                    self.mouse.click()
+                    Mouse().click()
 
 class Mouse:
     def __init__(self):
@@ -75,10 +76,10 @@ class Mouse:
         self.serial_port.port = COM_PORT
         try:
             self.serial_port.open()
-            print(f"{Fore.GREEN}\t\t\t\t\b\b[SUCCESS]{Style.RESET_ALL} Connected to Arduino Leonardo on '{COM_PORT}'!")
+            #print(f"{Fore.GREEN}\t\t\t\t\b\b[SUCCESS]{Style.RESET_ALL} Connected to Arduino Leonardo on '{COM_PORT}'!")
         except serial.SerialException:
             print(f"{Fore.RED}\t\t[ERROR]{Style.RESET_ALL} Failed to connect because the specified COM port was not found, exiting...")
-            sleep(10)
+            time.sleep(10)
 
     def move(self, x, y):
         self.serial_port.write(f'{x},{y}\n'.encode())
