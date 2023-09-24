@@ -12,18 +12,37 @@ def startup():
     os.system(f"title Prozac")
 
 def prints():
-    print(f"""{Fore.CYAN}
-             \t\t\t\t    ▄▄▄·▄▄▄        ·▄▄▄▄• ▄▄▄·  ▄▄· 
-             \t\t\t\t   ▐█ ▄█▀▄ █·▪     ▪▀·.█▌▐█ ▀█ ▐█ ▌▪
-             \t\t\t\t    ██▀·▐▀▀▄  ▄█▀▄ ▄█▀▀▀•▄█▀▀█ ██ ▄▄
-             \t\t\t\t   ▐█▪·•▐█•█▌▐█▌.▐▌█▌▪▄█▀▐█ ▪▐▌▐███
-             \t\t\t\t   .▀   .▀  ▀ ▀█▄▀▪·▀▀▀ • ▀  ▀ ·▀▀
-          {Style.RESET_ALL}""")
-    
-    print(
-    f"{Fore.LIGHTBLACK_EX}[" + f"{Fore.CYAN}x" + f"{Fore.LIGHTBLACK_EX}]{Style.RESET_ALL}"
-    " Join our support discord server: " +
-    f"{Fore.WHITE}discord.gg/bsNKqvxvE2{Style.RESET_ALL}"
-    )
+    ascii_art = """
+                                           @@@@@@
+                                       @@@@@@@@@@@@
+                                     @@@@@@@@@@@@@@@@
+                                    @@@@@@@@@@@@@@@@@@
+                                   @@@@@@@@@@@@@@@@@@@@@
+                                    @@@@@@@@@@@@@@@@@@@@@@@
+                                     @@@@@@@@@@@@@@@@@@@######
+                                     @@@@@@@@@@@@@@@@##########
+                                       @@@@@@@@@@@@##############
+                                         @@@@@@@@@#################
+                                           @@@@@@####################
+                                             @@@#######################
+                                                 ########################
+                                                  ######################
+                                                    ###################
+                                                      ###############
+                                                        ###########
+                                                          #######
+                                         ▄▄▄·▄▄▄        ·▄▄▄▄• ▄▄▄·  ▄▄·
+                                        ▐█ ▄█▀▄ █·     ▪▀·.█▌▐█ ▀█ ▐█ ▌▪
+                                         ██▀·▐▀▀▄  ▄█▀▄ ▄█▀▀▀•▄█▀▀█ ██ ▄▄
+                                        ▐█▪·•▐█•█▌▐█▌.▐▌█▌▪▄█▀▐█ ▪▐▌▐███▌
+                                        .▀   .▀  ▀ ▀█▄▀▪·▀▀▀ • ▀  ▀ ·▀▀▀
+    """
 
+    ascii_art = ascii_art.replace("@", f"{Fore.GREEN}@{Style.RESET_ALL}").replace(".", f"{Fore.WHITE}.{Style.RESET_ALL}")
+
+    support_discord = f"{Fore.LIGHTBLACK_EX}\t\t\t  [{Fore.GREEN}x{Style.RESET_ALL}] Join our support discord server: {Fore.GREEN}discord.gg/bsNKqvxvE2   {Style.RESET_ALL}"
+    
+    print(ascii_art)
+    print(support_discord)
+    
 run()
