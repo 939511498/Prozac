@@ -7,7 +7,7 @@ import dxcam
 import time
 from colorama import Fore, Style
 
-# Settings
+#Settings
 COM_PORT = "COM3"  # The COM port number for your Arduino. This can be found in the Device Manager.
 X_FOV = 100  # Field of view for the X-axis.
 Y_FOV = 100  # Field of view for the Y-axis.
@@ -15,14 +15,14 @@ AIM_KEY = 0x02  # Key code for aim task. See https://t.ly/qtrot for full key cod
 TRIGGER_KEY = 0x12  # Key code for trigger task. See https://t.ly/qtrot for full key codes.
 X_SPEED = 0.5  # Speed of mouse movement along the X-axis. Lower values make it slower.
 Y_SPEED = 0.5  # Speed of mouse movement along the Y-axis. Lower values make it slower.
-AIM_OFFSET = 7 #Higher value will make it aim lower
+AIM_OFFSET = 7 #Higher value will make it aim lower.
+camera = dxcam.create(output_idx=0, output_color="BGR") # Initialize the camera with settings.
 LOWER_COLOR = [140, 120, 180]
 UPPER_COLOR = [160, 200, 255]
-camera = dxcam.create(output_idx=0, output_color="BGR") # Initialize the camera with settings
 
 class Prozac:
     def __init__(self):
-        #self.mouse = Mouse() - an issue, will fix later 
+        self.mouse = Mouse()
         self.capture = Capture()
     
     def listen(self):
@@ -62,11 +62,11 @@ class Prozac:
             y_offset = top_most_y - screen_center[1]
 
             if task == "aim":
-                Mouse().move(x_offset * X_SPEED, y_offset * Y_SPEED)
+                self.mouse.move(x_offset * X_SPEED, y_offset * Y_SPEED)
 
             if task == "click":
                 if abs(x_offset) <= 3 and abs(y_offset) <= 7:
-                    Mouse().click()
+                    self.mouse.click()
 
 class Mouse:
     def __init__(self):
@@ -76,7 +76,7 @@ class Mouse:
         self.serial_port.port = COM_PORT
         try:
             self.serial_port.open()
-            #print(f"{Fore.GREEN}\t\t\t\t\b\b[SUCCESS]{Style.RESET_ALL} Connected to Arduino Leonardo on '{COM_PORT}'!")
+            print(f"{Fore.GREEN}\t\t\t\t\b\b[SUCCESS]{Style.RESET_ALL} Connected to Arduino Leonardo on '{COM_PORT}'!")
         except serial.SerialException:
             print(f"{Fore.RED}\t\t[ERROR]{Style.RESET_ALL} Failed to connect because the specified COM port was not found, exiting...")
             time.sleep(10)
