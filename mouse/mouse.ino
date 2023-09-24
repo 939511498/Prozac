@@ -21,7 +21,6 @@ void processCommand(String command) {
       int x = command.substring(0, commaIndex).toInt();
       int y = command.substring(commaIndex + 1).toInt();
       Mouse.move(x, y);
-      Serial.write("ACK\n");
     }
   }
 }
