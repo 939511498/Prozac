@@ -76,7 +76,7 @@ class Mouse:
         self.serial_port.port = COM_PORT
         try:
             self.serial_port.open()
-            print(f"{Fore.GREEN}\t\t\t\t\b\b[SUCCESS]{Style.RESET_ALL} Connected to Arduino Leonardo on '{COM_PORT}'!")
+            print(f"{Fore.GREEN}\t\t\t\t\b\b{Fore.LIGHTBLACK_EX}[{Fore.GREEN}SUCCESS{Fore.LIGHTBLACK_EX}]{Style.RESET_ALL} Connected to Arduino Leonardo on '{COM_PORT}'!")
         except serial.SerialException:
             print(f"{Fore.RED}\t\t[ERROR]{Style.RESET_ALL} Failed to connect because the specified COM port was not found, exiting...")
             time.sleep(10)
