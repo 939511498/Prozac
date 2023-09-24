@@ -21,13 +21,16 @@ UPPER_COLOR = [160, 200, 255]
 camera = dxcam.create(output_idx=0, output_color="BGR") # Initialize the camera with settings
 
 class Prozac:
+    def __init__(self):
+        self.mouse = Mouse()
+    
     def listen(self):
         while True:
             if win32api.GetAsyncKeyState(AIM_KEY) < 0:
                 self.run("aim")
             if win32api.GetAsyncKeyState(TRIGGER_KEY) < 0:
                 self.run("click")
-
+                
     def run(self, task):
         hsv = cv2.cvtColor(Capture().get_screen(), cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, np.array(LOWER_COLOR), np.array(UPPER_COLOR))
@@ -58,11 +61,11 @@ class Prozac:
             y_offset = top_most_y - screen_center[1]
 
             if task == "aim":
-                Mouse().move(x_offset * X_SPEED, y_offset * Y_SPEED)
+                self.mouse.move(x_offset * X_SPEED, y_offset * Y_SPEED)
 
             if task == "click":
-                if abs(x_offset) <= 3 and abs(y_offset) <= 7: #Dirty implementation of a trigger bot. This may be refined later.
-                    Mouse().click()
+                if abs(x_offset) <= 3 and abs(y_offset) <= 7:
+                    self.mouse.click()
 
 class Mouse:
     def __init__(self):
@@ -72,8 +75,9 @@ class Mouse:
         self.serial_port.port = COM_PORT
         try:
             self.serial_port.open()
+            print(f"{Fore.GREEN}\t\t\t\t\b\b[SUCCESS]{Style.RESET_ALL} Connected to Arduino Leonardo on '{COM_PORT}'!")
         except serial.SerialException:
-            print(f"{Fore.RED}[ERROR]{Style.RESET_ALL} Failed to connect because the specified COM port was not found.")
+            print(f"{Fore.RED}\t\t[ERROR]{Style.RESET_ALL} Failed to connect because the specified COM port was not found, exiting...")
             sleep(10)
 
     def move(self, x, y):
