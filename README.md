@@ -33,7 +33,7 @@ To get started with Prozac, you will need **one** of the following Arduino board
 1. Download and install the [latest Python version](https://www.python.org/downloads/).
 2. Install dependencies with `pip install -r requirements.txt`.
 3. Edit your [settings](https://github.com/Primoria/Prozac/blob/main/prozac.py#L10-L20) in `prozac.py`.
-4. Run `main.py`.
+4. Run `main.py`, ensure that the outline color of the enemies is set to purple.
 
 ## ℹ️ Support
 Need assistance or have queries? Join our Discord community for real-time support!
@@ -42,9 +42,9 @@ Need assistance or have queries? Join our Discord community for real-time suppor
 
 ## 🌟 Upcoming Features
 - [x] Smooth aiming implemented.
-- [ ] GUI development in progress.
-- [ ] Triggerbot feature to be added.
-- [ ] Code optimization.
+- [x] Triggerbot feature to be added.
+- [x] Code optimization.
+- [ ] Better color filtering.
 
 Feel free to contribute or suggest new features!
 If you find this project useful or interesting, consider giving it a ⭐️ star to help keep the development going!
