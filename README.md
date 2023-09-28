@@ -1,7 +1,6 @@
 <h1 align="center">Prozac 💊</h1>
 
-A Python-based educational project for real-time color-based object tracking using computer vision, integrated with Arduino for enhanced security features.
-</p>
+Prozac is an advanced color-based aimbot and triggerbot for Valorant, made for educational purposes.
 
 ## 🛠 Requirements
 
