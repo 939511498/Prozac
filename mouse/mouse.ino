@@ -20,7 +20,16 @@ void processCommand(String command) {
     if (commaIndex != -1) {
       int x = command.substring(0, commaIndex).toInt();
       int y = command.substring(commaIndex + 1).toInt();
-      Mouse.move(x, y);
+
+      while (x != 0 || y != 0) {
+        int moveX = constrain(x, -128, 127);
+        int moveY = constrain(y, -128, 127);
+        
+        Mouse.move(moveX, moveY);
+
+        x -= moveX;
+        y -= moveY;
+      }
     }
   }
 }
