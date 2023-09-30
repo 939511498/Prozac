@@ -12,6 +12,8 @@ To get started with Prozac, you will need **one** of the following Arduino board
 
 ## 🚀 Quick Start Guide
 
+Video tutorial [here](https://youtu.be/wY2qe_QpO2g)
+
 ### Step 1: Configure Arduino as Mouse
 1. Download and install the [Legacy Arduino IDE](https://downloads.arduino.cc/arduino-1.8.19-windows.exe).
 2. Navigate to your Arduino IDE's `board.txt` file, usually located in `C:\Program Files (x86)\Arduino\hardware\arduino\avr`.
