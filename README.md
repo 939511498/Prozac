@@ -31,7 +31,7 @@ Video tutorial [here](https://youtu.be/wY2qe_QpO2g)
 4. Confirm your Arduino is recognized as a HID device with your mouse's `vid` and `pid`.
 
 ### Step 3: Run Python Script
-1. Download and install the [latest Python version](https://www.python.org/downloads/).
+1. Download and install the [3.8 Python](https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe) as it is the most compatible version for Prozac.
 2. Install dependencies with `pip install -r requirements.txt`.
 3. Edit your [settings](https://github.com/Primoria/Prozac/edit/main/prozac.py#L10-L18) in `prozac.py`.
 4. Run `main.py`, ensure that the outline color of the enemies is set to purple.
