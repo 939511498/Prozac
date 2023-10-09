@@ -5,18 +5,20 @@ import win32api
 import serial
 import dxcam
 import time
+
+from random import randint
 from colorama import Fore, Style
 
 #Settings
-COM_PORT = "COM3"  # The COM port number for your Arduino. This can be found in the Device Manager.
-X_FOV = 100  # Field of view for the X-axis.
-Y_FOV = 100  # Field of view for the Y-axis.
-AIM_KEY = 0x02  # Key code for aim task. See https://t.ly/qtrot for full key codes.
-TRIGGER_KEY = 0x12  # Key code for trigger task. See https://t.ly/qtrot for full key codes.
-X_SPEED = 0.5  # Speed of mouse movement along the X-axis. Lower values make it slower.
-Y_SPEED = 0.5  # Speed of mouse movement along the Y-axis. Lower values make it slower.
-AIM_OFFSET = 7 #Higher value will make it aim lower.
-camera = dxcam.create(output_idx=0, output_color="BGR") # Initialize the camera with settings.
+COM_PORT = "COM3"
+X_FOV = 100
+Y_FOV = 100
+AIM_KEY = 0x02
+TRIGGER_KEY = 0x12
+X_SPEED = 3
+Y_SPEED = 3
+AIM_OFFSET = 7
+camera = dxcam.create(output_idx=0, output_color="BGR")
 LOWER_COLOR = [140, 120, 180]
 UPPER_COLOR = [160, 200, 255]
 
@@ -62,7 +64,7 @@ class Prozac:
             y_offset = top_most_y - screen_center[1]
 
             if task == "aim":
-                self.mouse.move(x_offset * X_SPEED, y_offset * Y_SPEED)
+                self.mouse.move(x_offset * (X_SPEED * 0.1), y_offset * (Y_SPEED * 0.1))
 
             if task == "click":
                 if abs(x_offset) <= 3 and abs(y_offset) <= 7:
@@ -82,10 +84,12 @@ class Mouse:
             time.sleep(10)
 
     def move(self, x, y):
-        self.serial_port.write(f'{x},{y}\n'.encode())
+        x = int(x + 5323)
+        y = int(y + 987)
+        self.serial_port.write(f'Temperature: {randint(25, 30)}°C, Pressure: {y} hPa, Humidity: {randint(0, 100)}%, Ambient Light: {x} Lux\n'.encode())
 
     def click(self):
-       self.serial_port.write('CLICK\n'.encode())
+       self.serial_port.write('Send_Temperature_Report\n'.encode())
 
 class Capture:
     def __init__(self):
