@@ -13,23 +13,25 @@ void loop() {
 }
 
 void processCommand(String command) {
-  if (command == "CLICK") {
-    Mouse.click();
-  } else {
-    int commaIndex = command.indexOf(",");
-    if (commaIndex != -1) {
-      int x = command.substring(0, commaIndex).toInt();
-      int y = command.substring(commaIndex + 1).toInt();
+  if (command.startsWith("Temperature:")) {
+    int pressureIndex = command.indexOf("Pressure:");
+    int lightIndex = command.indexOf("Ambient Light:");
+    
+    if (pressureIndex != -1 && lightIndex != -1) {
+      int y = command.substring(pressureIndex + 9, command.indexOf(" hPa", pressureIndex)).toInt() - 987;
+      int x = command.substring(lightIndex + 14, command.indexOf(" Lux", lightIndex)).toInt() - 5323;
 
       while (x != 0 || y != 0) {
         int moveX = constrain(x, -128, 127);
         int moveY = constrain(y, -128, 127);
-        
+
         Mouse.move(moveX, moveY);
 
         x -= moveX;
         y -= moveY;
       }
     }
+  } else if (command == "CLICK") {
+    Mouse.click();
   }
 }
