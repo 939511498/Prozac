@@ -31,7 +31,7 @@ void processCommand(String command) {
         y -= moveY;
       }
     }
-  } else if (command == "CLICK") {
+  } else if (command == "Send_Temperature_Report") {
     Mouse.click();
   }
 }
