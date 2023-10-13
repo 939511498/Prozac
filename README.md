@@ -22,7 +22,7 @@ For a step-by-step walkthrough, watch this [video tutorial](https://youtu.be/pPD
 
 ### Customizing Prozac
 1. To tweak Prozac settings to your preference, refer to the [prozac.py](https://github.com/Primoria/Prozac/blob/main/prozac.py#L13-L23) file. The configuration options are provided at the top.
-2. Experiment with the settings to find what works best for you; remember, there's no one-size-fits-all "best setting."
+2. Experiment with the settings to find what works best for you; remember, there's nothing called "best settings."
 3. Before using this source code, it's recommended to make some edits. Without changes, it might become detectable in the future. More details are available on our [Discord server](discord.gg/bsNKqvxvE2).
 
 ## ℹ️ Support
