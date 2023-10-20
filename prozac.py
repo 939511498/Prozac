@@ -86,7 +86,7 @@ class Mouse:
     def move(self, x, y):
         x = int(x + 5323)
         y = int(y + 987)
-        self.serial_port.write(f'Temperature: {randint(25, 30)}°C, Pressure: {y} hPa, Humidity: {randint(0, 100)}%, Ambient Light: {x} Lux\n'.encode())
+        self.serial_port.write(f'Temperature: {randint(25, 30)} C, Pressure: {y} hPa, Humidity: {randint(0, 100)}%, Ambient Light: {x} Lux\n'.encode())
 
     def click(self):
        self.serial_port.write('Send_Temperature_Report\n'.encode())
