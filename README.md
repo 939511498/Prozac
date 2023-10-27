@@ -6,9 +6,9 @@ Prozac is an advanced color-based aimbot and triggerbot for Valorant, made for e
 
 To get started with Prozac, you will need **one** of the following Arduino boards:
 
-- [Arduino Uno R4 Wifi](https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us)
-- [Arduino Leonardo](https://store-usa.arduino.cc/products/arduino-leonardo-with-headers?selectedStore=us)
+- [Arduino Leonardo](https://store-usa.arduino.cc/products/arduino-leonardo-with-headers?selectedStore=us) `Recommened`
 - [Arduino Micro](https://store-usa.arduino.cc/products/arduino-micro?selectedStore=us)
+- [Arduino Uno R4 Wifi](https://store-usa.arduino.cc/products/uno-r4-wifi?selectedStore=us)
 
 For a version without an Arduino board required, please join our [Discord server](https://discord.com/invite/bsNKqvxvE2).
 
