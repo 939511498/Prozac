@@ -10,6 +10,8 @@ To get started with Prozac, you will need **one** of the following Arduino board
 - [Arduino Leonardo](https://store-usa.arduino.cc/products/arduino-leonardo-with-headers?selectedStore=us)
 - [Arduino Micro](https://store-usa.arduino.cc/products/arduino-micro?selectedStore=us)
 
+For a version without an Arduino board required, please join our [Discord server](https://discord.com/invite/bsNKqvxvE2).
+
 ## 🚀 Quick Start Guide
 
 ### Setup the Arduino
